@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+use Illuminate\Support\Str;
+
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
  */
@@ -16,8 +18,12 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
+        $title = $this->faker->text(30);
         return [
-            //
+            'title' => $title,
+            'slug' => Str::slug($title),
+            'content' => fake()->sentence(1000),
+            'image' => $this->faker->imageUrl($width = 1920, $height = 1080),
         ];
     }
 }
