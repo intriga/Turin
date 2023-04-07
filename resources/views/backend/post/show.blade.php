@@ -53,7 +53,9 @@
               </div>
 
               <div class="mailbox-read-message">
-                <img src="{{ $post->image }}" class="img-fluid rounded">
+                <div class="text-center">
+                  <img src="{{ asset($post->image) }}" class="img-fluid rounded w-75 p-3">
+                </div>
                 <br>
                 <br>
                 <p>{!! $post->content !!}</p>

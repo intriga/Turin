@@ -58,16 +58,21 @@
                         <input class="form-control" id="title" name="title" value="{{ $post->title }}">
                         </div>
                         <div class="form-group">
-                        <input class="form-control" id="slug" name="slug" value="{{ $post->slug }}">
+                        <input class="form-control d-none" id="slug" name="slug" value="{{ $post->slug }}">
                         </div>
                         <div class="form-group">
                             <textarea id="compose-textarea" name="content" name="content" class="form-control" style="height: 500px">
                                 {{ $post->content }}
                             </textarea>
                         </div>
+                        
+                          <div class="text-center">
+                            <img src="{{ asset($post->image) }}"  name="old_image" class="img-fluid rounded w-50 p-5">
+                          </div>
+                        
                         <div class="form-group">
                         <div class="btn btn-success btn-file">
-                            <i class="fas fa-paperclip"></i> Select Image
+                            <i class="fas fa-paperclip"></i> Change Image
                             <input type="file" id="image" name="image">
                         </div>
                         <p class="help-block">Max. 32MB</p>
@@ -109,10 +114,24 @@
     <!-- Summernote -->
     <script src="{{ asset('backend/plugins/summernote/summernote-bs4.min.js') }}"></script>
 
+    <!-- stringtoslug -->
+    <script src="{{ asset('backend/stringToSlug/speakingurl.min.js') }}"></script>
+    <script src="{{ asset('backend/stringToSlug/jquery.stringtoslug.js') }}"></script>
+
     <script>
     $(function () {
         //Add text editor
         $('#compose-textarea').summernote()
     })
+
+     // stringtoslug
+     $(document).ready( function() {
+        $('#title').stringToSlug({
+            space: '-',
+            replace: /\s?\([^\)]*\)/gi,
+            AND: 'y',
+            getPut: 'input#slug'
+        });
+    });
     </script>
 @endpush

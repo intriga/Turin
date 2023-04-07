@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Post;
 
+use Illuminate\Support\Facades\Storage;
+
 class PostController extends Controller
 {
     /**
@@ -37,6 +39,12 @@ class PostController extends Controller
         $post->title = $request->input('title');
         $post->slug = $request->input('slug');
         $post->content = $request->input('content');
+
+        if ($request->allFiles('image')) {     
+            $fileName = $request->file('image')->hashName();
+            $path = $request->file('image')->storeAs('images', $fileName, 'public');
+            $post["image"] = '/storage/'.$path;
+        }
 
         $post->save();
 
@@ -71,8 +79,33 @@ class PostController extends Controller
         $post->title = $request->input('title');
         $post->slug = $request->input('slug');
         $post->content = $request->input('content');
+        $post->image = $request->input('image');
+        $post->old_image = $request->input('old_image');
 
-        $post->save();
+        $image = $post->old_image = $request->input('old_image');
+
+        if ($request->allFiles('image') && $post->old_image == null) {
+            !is_null($image) && Storage::delete($image);
+            $fileName = $request->file('image')->hashName();
+            $files = $request->file('image')->storeAs('images', $fileName, 'public');
+            $post["image"] = '/storage/'.$files;           
+            
+            $post->save();
+
+        }elseif ($request->allFiles('image')) {
+
+            !is_null($image) && Storage::delete($image);
+            unlink(storage_path('app/public/images' . substr($image, 15) ));
+            $fileName = $request->file('image')->hashName();
+            $files = $request->file('image')->storeAs('images', $fileName, 'public');
+            $post["image"] = '/storage/'.$files;            
+            
+            $post->save();
+
+        }else{
+            $post->image = $post->old_image;
+            $post->save();
+        }
 
         return redirect('/dashboard/posts/');
     }
@@ -83,7 +116,15 @@ class PostController extends Controller
     public function destroy(string $id)
     {
         $post = Post::find($id);
-        $post->delete();
+
+        if ($post->image) {
+            $image = $post->image;
+            unlink(storage_path('app/public/images' . substr($image, 15) ));            
+            $post->delete();
+        }else{
+            $post->delete();
+        }
+        
         return redirect('/dashboard/posts');
     }
 }

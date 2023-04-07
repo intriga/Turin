@@ -51,7 +51,7 @@
                         <input class="form-control" id="title" name="title" placeholder="Title">
                         </div>
                         <div class="form-group">
-                        <input class="form-control" id="slug" name="slug" placeholder="Slug">
+                        <input class="form-control d-none" id="slug" name="slug" placeholder="Slug">
                         </div>
                         <div class="form-group">
                             <textarea id="compose-textarea" name="content" name="content" class="form-control" style="height: 500px">
@@ -102,10 +102,25 @@
     <!-- Summernote -->
     <script src="{{ asset('backend/plugins/summernote/summernote-bs4.min.js') }}"></script>
 
+    <!-- stringtoslug -->
+    <script src="{{ asset('backend/stringToSlug/speakingurl.min.js') }}"></script>
+    <script src="{{ asset('backend/stringToSlug/jquery.stringtoslug.js') }}"></script>
+
     <script>
     $(function () {
         //Add text editor
         $('#compose-textarea').summernote()
     })
+
+     // stringtoslug
+     $(document).ready( function() {
+        $('#title').stringToSlug({
+            space: '-',
+            replace: /\s?\([^\)]*\)/gi,
+            AND: 'y',
+            getPut: 'input#slug'
+        });
+    });
+
     </script>
 @endpush
