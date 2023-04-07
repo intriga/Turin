@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
 
-            $table->string('title', 100);
-            $table->string('slug', 100)->unique();
+            $table->text('title', 100);
+            $table->text('slug', 100)->unique();
             $table->text('content');
             $table->text('image')->nullable();
             $table->text('old_image')->nullable();
