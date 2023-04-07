@@ -31,4 +31,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/dashboard/post', [PostController::class, 'index'])->name('posts');
+Route::get('/dashboard/posts', [PostController::class, 'index'])->name('posts');
+Route::get('/dashboard/post/create', [PostController::class, 'create']);
+Route::post('/dashboard/post/', [PostController::class, 'store']);  
+Route::get('/dashboard/post/{id}', [PostController::class, 'show']);
+Route::get('/dashboard/post/{id}/edit', [PostController::class, 'edit']);  
+Route::post('/dashboard/post/{id}/edit', [PostController::class, 'update']);  
+Route::delete('/dashboard/post/{id}', [PostController::class, 'destroy']);  

@@ -16,7 +16,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Simple Tables</h1>
+            <h1>Posts</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -36,7 +36,12 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Responsive Hover Table</h3>
+                <h3 class="card-title">
+                <a href="{{ url('dashboard/post/create') }}" type="button" class="btn btn-outline-success btn-block">
+                  <i class="nav-icon fas fa-plus"></i>
+                  Create Post
+                </a>
+                </h3>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -67,7 +72,23 @@
                       <td>{{ $post->id }}</td>
                       <td>{{ $post->title }}</td>
                       <td>{{ $post->created_at }}</td>
-                      <td>qwerty</td>
+                      <td>
+                          <form action="{{ url('dashboard/post/'.$post->id) }}" method="post">
+                          @csrf
+                          {{ method_field('DELETE') }}
+
+                            <a href="{{ url('dashboard/post/'.$post->id) }}" type="button" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{{ url('dashboard/post/'.$post->id.'/edit') }}" type="button" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                <i class="fas fa-trash"></i>
+                            </button>
+
+                          </form>
+                      </td>
                     </tr>
                     @endforeach
                   </tbody>

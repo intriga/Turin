@@ -33,7 +33,7 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('posts') }}" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <i class="nav-icon fas fa-solid fa-pen"></i>
                     <p>
                         Posts
                     </p>
@@ -43,7 +43,7 @@
                 <a href="{{ route('logout') }}" class="nav-link"
                     onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <i class="nav-icon fas fa-sign-out-alt"></i>
                     <p>
                         {{ __('Logout') }}
                     </p>

@@ -25,7 +25,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.post.create');
     }
 
     /**
@@ -33,7 +33,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = new Post();
+        $post->title = $request->input('title');
+        $post->slug = $request->input('slug');
+        $post->content = $request->input('content');
+
+        $post->save();
+
+        return redirect('/dashboard/posts');
     }
 
     /**
@@ -41,7 +48,8 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $post = Post::find($id);
+        return view('backend.post.show', compact('post'));
     }
 
     /**
@@ -49,7 +57,8 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $post = Post::where('id', $id)->first();
+        return view('backend.post.edit', compact('post'));
     }
 
     /**
@@ -57,7 +66,15 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $post = Post::find($id);
+
+        $post->title = $request->input('title');
+        $post->slug = $request->input('slug');
+        $post->content = $request->input('content');
+
+        $post->save();
+
+        return redirect('/dashboard/posts/');
     }
 
     /**
@@ -65,6 +82,8 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $post = Post::find($id);
+        $post->delete();
+        return redirect('/dashboard/posts');
     }
 }
