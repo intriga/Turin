@@ -16,8 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()
-            ->orderBy('id', 'desc')
+        $posts = Post::orderBy('id', 'desc')
             ->paginate(10);
         return view('backend.post.index', compact('posts'));
     }
@@ -78,9 +77,12 @@ class PostController extends Controller
 
         $post->title = $request->input('title');
         $post->slug = $request->input('slug');
-        $post->content = $request->input('content');
+        
         $post->image = $request->input('image');
         $post->old_image = $request->input('old_image');
+        $post->content = $request->input('content');
+        
+        //dd($request->all());
 
         $image = $post->old_image = $request->input('old_image');
 

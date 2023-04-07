@@ -71,7 +71,7 @@
                     <tr>
                       <td>{{ $post->id }}</td>
                       <td>{{ $post->title }}</td>
-                      <td>{{ $post->created_at }}</td>
+                      <td>{{ $post->created_at->format("m/d/Y H:i:s") }}</td>
                       <td>
                           <form action="{{ url('dashboard/post/'.$post->id) }}" method="post">
                           @csrf

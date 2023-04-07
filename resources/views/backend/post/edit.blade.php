@@ -68,6 +68,7 @@
                         
                           <div class="text-center">
                             <img src="{{ asset($post->image) }}"  name="old_image" class="img-fluid rounded w-50 p-5">
+                            <input type="hidden" name="old_image" value="{{ $post->image }}">
                           </div>
                         
                         <div class="form-group">
