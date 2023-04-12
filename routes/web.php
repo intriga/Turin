@@ -49,7 +49,7 @@ Route::middleware(['auth', 'dashboard'])->prefix('dashboard')->namespace('dashbo
     Route::get('/posts', [PostController::class, 'index'])->name('posts');
     Route::get('/post/create', [PostController::class, 'create']);
     Route::post('/post/', [PostController::class, 'store']);  
-    Route::get('/post/{id}', [PostController::class, 'show']);
+    Route::get('/post/{slug}', [PostController::class, 'show']);
     Route::get('/post/{id}/edit', [PostController::class, 'edit']);  
     Route::post('/post/{id}/edit', [PostController::class, 'update']);  
     Route::delete('/post/{id}', [PostController::class, 'destroy']);  

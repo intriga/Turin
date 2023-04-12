@@ -53,9 +53,10 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $slug)
     {
-        $post = Post::find($id);
+        // $post = Post::find($id);
+        $post = Post::where('slug', $slug)->first();
         return view('backend.post.show', compact('post'));
     }
 

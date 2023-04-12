@@ -77,7 +77,7 @@
                           @csrf
                           {{ method_field('DELETE') }}
 
-                            <a href="{{ url('dashboard/post/'.$post->id) }}" type="button" class="btn btn-outline-primary btn-sm">
+                            <a href="{{ url('dashboard/post/'.$post->slug) }}" type="button" class="btn btn-outline-primary btn-sm">
                                 <i class="fas fa-eye"></i>
                             </a>
                             <a href="{{ url('dashboard/post/'.$post->id.'/edit') }}" type="button" class="btn btn-warning btn-sm">

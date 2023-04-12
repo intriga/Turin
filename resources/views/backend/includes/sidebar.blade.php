@@ -33,7 +33,7 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('posts') }}" class="nav-link">
-                    <i class="nav-icon fas fa-solid fa-pen"></i>
+                    <i class="nav-icon fas fa-solid fa-inbox"></i>
                     <p>
                         Posts
                     </p>
