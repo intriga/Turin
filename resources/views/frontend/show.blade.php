@@ -1,64 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('frontend.layouts.app')
 
-
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Turin | Intriga</title>
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,600,700,700i&amp;subset=cyrillic,greek-ext,latin-ext" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Stalemate&amp;subset=latin-ext" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Spectral+SC:400,600,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
-    <link href="{{ asset('frontend/assets/dist/css/style.min.css') }}" rel="stylesheet">
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
-
-<body>
+@section('content')
     
-<header class="general-header header-layout-one">
-        <div class="general-header-inner">
-            <!-- // header-top-wrapper -->
-            <div class="container">
-                <div class="site-info">
-                    <h1 class="site-title">Turin</h1>
-                   <!--  <img src="./assets/dist/img/logo.png" alt="logo"> -->
-                </div>
-                <!-- // site-info -->
-            </div>
-            <!-- // container -->
-            <nav class="main-nav layout-one">
-                <div id="main-nav" class="stellarnav light left desktop"><a href="#" class="menu-toggle full"><i class="fa fa-bars"></i> Menu</a>
-                    <ul><a href="#" class="close-menu full"><i class="fa fa-close"></i> <span>Close</span></a>                        
-                        <li><a href="{{ url('/') }}">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li class=""><a href="#">Contact Us</a></li>
-                        
-                    </ul>
-                </div>
-                <!-- .stellar-nav -->
-            </nav>
-        </div>
-        <!-- // general-header-inner -->
-    </header>
+    <!-- header 2 -->
+    @include('frontend.includes.header-2')
+    
     
     <div class="general-single-page-layout single-page-layout-one">
-        <div class="breadcrumb-wrapper">
-            <div class="breadcrumb" style="background:url({{url('/frontend/assets/dist/img/breadcrumb/two.jpg')}})">
-                <ul class="breadcrumb-listing">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Lifestyle</a></li>
-                    <li><a href="#">Post</a></li>
-                </ul>
-                <div class="mask"></div>
-            </div>
-            <!-- // breadcrumb -->
-        </div>
+        <!-- header 2 -->
+        @include('frontend.includes.breadcrumb')
+
         <div class="single-wrapper main-post-area-wrapper">
             <!-- // breadcrumb-wrapper -->
             <div class="single-page-wrapper">
@@ -138,26 +89,10 @@
         <!-- // single-wrapper -->
     </div>
 
-<div id="instafeed" class="instafeed owl-carousel feed-carousel">
 
-</div>
 
 <!-- // footer -->
 @include('frontend.includes.footer')
 
-<script src="{{ asset('frontend/assets/dist/js/bundle.min.js') }}"></script>
 
-<script src="{{ asset('frontend/assets/dist/js/scripts.js') }}"></script>
-
-<script>
-
-
-</script>
-
-</body>
-
-
-
-
-<!-- Mirrored from offshorethemes.com/html/optimistic-blog/demo/index-two.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Feb 2023 17:30:55 GMT -->
-</html>
+@endsection
