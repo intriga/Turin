@@ -16,9 +16,10 @@ class FrontendController extends Controller
         return view('frontend.index', compact('posts'));
     }
 
-    public function show(string $id)
+    public function show(string $slug)
     {
-        $post = Post::find($id);
+        // $post = Post::find($id);
+        $post = Post::where('slug', $slug)->first();
         return view('frontend.show', compact('post'));
     }
 }
