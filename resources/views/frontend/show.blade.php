@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Optimistic Blog</title>
+    <title>Turin | Intriga</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,600,700,700i&amp;subset=cyrillic,greek-ext,latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Stalemate&amp;subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Spectral+SC:400,600,700" rel="stylesheet">
@@ -21,87 +21,122 @@
 
 <body>
     
-    <!-- // header -->
-    @include('frontend.includes.header')
-
-    <!-- // banner -->
-    @include('frontend.includes.banner')
-    
-    
-<div class="single-wrapper main-post-area-wrapper">
-    <div class="single-inner">
-        <div class="container">
-            <div class="search-page">
-                <div class="row">
-                    <div class="col-lg-8 col-md-8 col-sm-12 col-12">
-                        
-                    <div class="main-post-area-holder">
-                            <article class="single-page-details-holder wow fadeInUp">
-                                <div class="post-image">
-                                    <img src="{{ asset($post->image) }}" alt="....">
-                                </div>
-                                <div class="single-page-other-information-holder">
-                                    <div class="posted-category">
-                                        <div class="post-meta-category">
-                                            <span><a href="#">Lifestyle</a></span>
-                                            <span><a href="#">Health</a></span>
-                                            <span><a href="#">Art</a></span>
-                                        </div>
-                                    </div>
-                                    <div class="post-title">
-                                        <h2>{{ $post->title }}</h2>
-                                    </div>
-                                    <!-- // post-title -->
-                                    <div class="post-extra-meta">
-                                        <div class="row">
-                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                <div class="post-author">
-                                                    <img src="assets/dist/img/author4242.png" alt="....">
-                                                    <span><a href="#">Sparkle Themes</a></span>
-                                                </div>
-                                            </div>
-                                            <!-- // col -->
-                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                <div class="posted-date">
-                                                    <span><a href="#">{{ $post->created_at }}</a></span>
-                                                </div>
-                                            </div>
-                                            <!-- // col -->
-                                        </div>
-                                        <!-- // row -->
-                                    </div>
-                                    <!-- // post-extra-meta -->
-                                    <div class="post-the-content">
-                                        <p>{!! $post->content !!}</p>
-                                    </div>
-                                    <!-- // post-the-content  -->
-                                    <div class="post-share">
-                                        <div class="share"></div>
-                                    </div>
-                                </div>
-                                <!-- // single-page-information-holder -->
-                            </article>
-                            
-                            
-                        </div>
-                        <!-- // main-post-area-holder-->
-
-                    </div>
-                    <!-- // col -->
-
-                    <!-- // aside -->
-                    @include('frontend.includes.aside')
-                    <!-- // col 4 -->
+<header class="general-header header-layout-one">
+        <div class="general-header-inner">
+            <!-- // header-top-wrapper -->
+            <div class="container">
+                <div class="site-info">
+                    <h1 class="site-title">Turin</h1>
+                   <!--  <img src="./assets/dist/img/logo.png" alt="logo"> -->
                 </div>
-                <!-- // row that divides left and right sidebar -->
+                <!-- // site-info -->
             </div>
-            <!-- // search-page -->
+            <!-- // container -->
+            <nav class="main-nav layout-one">
+                <div id="main-nav" class="stellarnav light left desktop"><a href="#" class="menu-toggle full"><i class="fa fa-bars"></i> Menu</a>
+                    <ul><a href="#" class="close-menu full"><i class="fa fa-close"></i> <span>Close</span></a>                        
+                        <li><a href="{{ url('/') }}">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li class=""><a href="#">Contact Us</a></li>
+                        
+                    </ul>
+                </div>
+                <!-- .stellar-nav -->
+            </nav>
         </div>
-        <!-- // container -->
+        <!-- // general-header-inner -->
+    </header>
+    
+    <div class="general-single-page-layout single-page-layout-one">
+        <div class="breadcrumb-wrapper">
+            <div class="breadcrumb" style="background:url({{url('/frontend/assets/dist/img/breadcrumb/two.jpg')}})">
+                <ul class="breadcrumb-listing">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Lifestyle</a></li>
+                    <li><a href="#">Post</a></li>
+                </ul>
+                <div class="mask"></div>
+            </div>
+            <!-- // breadcrumb -->
+        </div>
+        <div class="single-wrapper main-post-area-wrapper">
+            <!-- // breadcrumb-wrapper -->
+            <div class="single-page-wrapper">
+                <div class="single-page-inner">
+                    <div class="container">
+                        <div class="search-page">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-12 col-12">
+                                    
+                                <div class="main-post-area-holder">
+                                        <article class="single-page-details-holder wow fadeInUp">
+                                            <div class="post-image">
+                                                <img src="{{ asset($post->image) }}" alt="....">
+                                            </div>
+                                            <div class="single-page-other-information-holder">
+                                                <div class="posted-category">
+                                                    <div class="post-meta-category">
+                                                        <span><a href="#">Lifestyle</a></span>
+                                                        <span><a href="#">Health</a></span>
+                                                        <span><a href="#">Art</a></span>
+                                                    </div>
+                                                </div>
+                                                <div class="post-title">
+                                                    <h2>{{ $post->title }}</h2>
+                                                </div>
+                                                <!-- // post-title -->
+                                                <div class="post-extra-meta">
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="post-author">
+                                                                <img src="{{ asset('frontend/assets/dist/img/author4242.png') }}" alt="....">
+                                                                <span><a href="#">Sparkle Themes</a></span>
+                                                            </div>
+                                                        </div>
+                                                        <!-- // col -->
+                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="posted-date">
+                                                                <span><a href="#">{{ \Carbon\Carbon::parse($post->created_at)->isoFormat('MMM Do YYYY')}}</a></span>
+                                                            </div>
+                                                        </div>
+                                                        <!-- // col -->
+                                                    </div>
+                                                    <!-- // row -->
+                                                </div>
+                                                <!-- // post-extra-meta -->
+                                                <div class="post-the-content">
+                                                    <p>{!! $post->content !!}</p>
+                                                </div>
+                                                <!-- // post-the-content  -->
+                                                <div class="post-share">
+                                                    <div class="share"></div>
+                                                </div>
+                                            </div>
+                                            <!-- // single-page-information-holder -->
+                                        </article>
+                                        
+                                        
+                                    </div>
+                                    <!-- // main-post-area-holder-->
+
+                                </div>
+                                <!-- // col -->
+
+                                <!-- // aside -->
+                                @include('frontend.includes.aside')
+                                <!-- // col 4 -->
+                            </div>
+                            <!-- // row that divides left and right sidebar -->
+                        </div>
+                        <!-- // search-page -->
+                    </div>
+                    <!-- // container -->
+                </div>
+                <!-- // single_inner -->
+            </div>
+        </div>
+        <!-- // single-wrapper -->
     </div>
-    <!-- // single_inner -->
-</div>
-<!-- // single-wrapper -->
 
 <div id="instafeed" class="instafeed owl-carousel feed-carousel">
 

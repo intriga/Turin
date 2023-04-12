@@ -2,12 +2,12 @@
 <html lang="en">
 
 
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Optimistic Blog</title>
+    <title>Intriga | Turin</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,600,700,700i&amp;subset=cyrillic,greek-ext,latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Stalemate&amp;subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Spectral+SC:400,600,700" rel="stylesheet">
@@ -53,12 +53,12 @@
                                     	</div>
 
                                         <div class="post-title">
-                                            <h2><a href="{{ url('/post/'.$post->id) }}">{{ $post->title }}</a></h2>
+                                            <h2><a href="{{ url('/post/'.$post->slug) }}">{{ $post->title }}</a></h2>
                                         </div>
                                         
                                        
                                         <div class="post-meta-posted-date">
-                                        	<p><a href="#">{{ $post->created_at->format("m/d/Y H:i:s") }}</a></p>
+                                        	<p><a href="#">{{ \Carbon\Carbon::parse($post->created_at)->isoFormat('MMM Do YYYY')}}</a></p>
                                         </div>
 
                                         <div class="post-share">
@@ -72,7 +72,7 @@
                             </article>
                             <!-- // end of article -->
                             @endforeach
-                            {{ $posts->links('vendor.pagination.simple-bootstrap-4') }}                                                         
+                            {{ $posts->links('vendor.pagination.bootstrap-4') }}                                                         
 
                         </div><!-- // main-post-area-holder -->
                     </div>
@@ -108,8 +108,4 @@
 
 </body>
 
-
-
-
-<!-- Mirrored from offshorethemes.com/html/optimistic-blog/demo/index-two.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Feb 2023 17:30:55 GMT -->
 </html>

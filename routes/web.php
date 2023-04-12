@@ -26,9 +26,10 @@ use App\Http\Controllers\Backend\PostController;
 //     return view('welcome');
 // });
 
+
 // frontend
 Route::get('/', [FrontendController::class, 'index']);
-Route::get('/post/{id}', [FrontendController::class, 'show']);
+Route::get('/post/{slug}/', [FrontendController::class, 'show']);
 
 Auth::routes();
 
