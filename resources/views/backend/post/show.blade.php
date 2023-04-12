@@ -35,12 +35,16 @@
         <div class="col-md-12">
           <div class="card card-primary card-outline">
             <div class="card-header">
-              <h3 class="card-title">Read Mail</h3>
+              <h3 class="card-title"></h3>
 
               <div class="card-tools">
+                <a href="{{ url('/post/'.$post->slug) }}" class="btn btn-outline-primary" title="Previous">
+                  Watch Post
+                </a>
                 <a href="{{ url('dashboard/posts') }}" class="btn btn-default" title="Previous">
                   <i class="fas fa-reply"></i>
                 </a>
+                
               </div>
             </div>
             <!-- /.card-header -->

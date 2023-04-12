@@ -22,6 +22,13 @@
                                     </li>
                                     <li><a href="#">Contact Us</a>
                                     </li>
+                                    @if (Route::has('login'))
+                                        @auth
+                                        <li>
+                                            <a href="{{ url('/dashboard') }}">Dashboard</a>
+                                        </li>
+                                        @endauth
+                                    @endif
                                 </ul>
                             </div>
                             <!-- .stellar-nav -->
