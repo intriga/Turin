@@ -53,7 +53,7 @@
                                     	</div>
 
                                         <div class="post-title">
-                                            <h2><a href="{{ $post->id }}">{{ $post->title }}</a></h2>
+                                            <h2><a href="{{ url('/post/'.$post->id) }}">{{ $post->title }}</a></h2>
                                         </div>
                                         
                                        

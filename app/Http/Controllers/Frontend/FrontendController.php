@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Post;
 
-class HomeController extends Controller
+class FrontendController extends Controller
 {
     public function index()
     {

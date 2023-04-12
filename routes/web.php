@@ -2,12 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 
+// frontend
+use App\Http\Controllers\Frontend\FrontendController;
+
 // backend
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PostController;
 
-// frontend
-use App\Http\Controllers\Frontend\HomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,25 +26,25 @@ use App\Http\Controllers\Frontend\HomeController;
 //     return view('welcome');
 // });
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-
 // frontend
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/{id}', [HomeController::class, 'show']);
+Route::get('/', [FrontendController::class, 'index']);
+Route::get('/post/{id}', [FrontendController::class, 'show']);
+
+Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 // Dashboard
 Route::middleware(['auth', 'dashboard'])->prefix('dashboard')->namespace('dashboard')->group(function () {
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+    // module post
     Route::get('/posts', [PostController::class, 'index'])->name('posts');
     Route::get('/post/create', [PostController::class, 'create']);
     Route::post('/post/', [PostController::class, 'store']);  
