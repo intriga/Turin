@@ -70,7 +70,7 @@
                     @foreach ($posts as $post)
                     <tr>
                       <td>{{ $post->id }}</td>
-                      <td>{{ $post->title }}</td>
+                      <td>{{ Str::limit($post->title, 50) }}</td>
                       <td>{{ $post->created_at->format("m/d/Y H:i:s") }}</td>
                       <td>
                           <form action="{{ url('dashboard/post/'.$post->id) }}" method="post">
