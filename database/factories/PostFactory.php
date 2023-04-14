@@ -19,7 +19,8 @@ class PostFactory extends Factory
     public function definition(): array
     {
         $title = $this->faker->text(30);
-        return [
+        return [          
+            'category_id' => rand(1, 5),  
             'title' => $title,
             'slug' => Str::slug($title),
             'content' => fake()->sentence(1000),

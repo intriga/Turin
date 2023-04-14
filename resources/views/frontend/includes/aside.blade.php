@@ -111,11 +111,9 @@
                                         </div>
                                         <div class="widget-extra-info-holder">
                                             <ul class="widget-category-listings">
-                                                <li><a href="#">Lifestyle</a></li>
-                                                <li><a href="#">Health</a></li>
-                                                <li><a href="#">Article</a></li>
-                                                <li><a href="#">Travel</a></li>
-                                                <li><a href="#">Uncategorised</a></li>
+                                                @foreach ($categories as $category)
+                                                    <li><a href="{{ url('/category/'.$category->slug) }}">{{ $category->title }}</a></li>
+                                                @endforeach
                                             </ul>
                                         </div>
                                         <!-- // widget-extra-info-holder -->

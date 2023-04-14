@@ -32,6 +32,8 @@ use App\Http\Controllers\Backend\CategoryController;
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('/post/{slug}/', [FrontendController::class, 'show']);
 
+Route::get('/category/{slug}/', [FrontendController::class, 'category']);
+
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

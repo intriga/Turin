@@ -14,13 +14,20 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
 
+            $table->foreign('category_id')->references('id')->on('categories')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->unsignedBigInteger('category_id');
+            
             $table->text('title', 100);
             $table->text('slug', 100)->unique();
             $table->text('content');
             $table->text('image')->nullable();
             $table->text('old_image')->nullable();
-
+            
             $table->timestamps();
+            
+            
         });
     }
 
