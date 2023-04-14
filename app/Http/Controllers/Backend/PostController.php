@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Post;
+use App\Models\Category;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -16,8 +18,14 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('id', 'desc')
+        // $posts = Post::orderBy('id', 'desc')
+        //     ->paginate(10);
+        $posts = DB::table('posts')
+            ->join('categories', 'posts.category_id', '=', 'categories.id')
+            ->select('posts.id', 'posts.title', 'posts.slug', 'posts.created_at', 'categories.title AS category_title')
+            ->orderBy('id', 'desc')
             ->paginate(10);
+
         return view('backend.post.index', compact('posts'));
     }
 
@@ -26,7 +34,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('backend.post.create');
+        $categories = Category::select('id', 'title')
+            ->latest()        
+            ->get();
+        //dd($categories);
+        return view('backend.post.create', compact('categories'));
     }
 
     /**
@@ -37,6 +49,7 @@ class PostController extends Controller
         $post = new Post();
         $post->title = $request->input('title');
         $post->slug = $request->input('slug');
+        $post->category_id = $request->input('category');
         $post->content = $request->input('content');
 
         if ($request->allFiles('image')) {     
@@ -65,8 +78,21 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        $post = Post::where('id', $id)->first();
-        return view('backend.post.edit', compact('post'));
+        // $post = Post::where('id', $id)->first();
+        $post = DB::table('posts')
+            ->select('posts.*', 'categories.title AS category_title')
+            ->join('categories', 'posts.category_id', '=', 'categories.id')
+            ->where(function ($query) use ($id) {
+                $query->where('posts.id', '=', $id);
+            })
+            ->first();
+        
+            $categories = Category::select('id', 'title')
+            ->latest()        
+            ->get();
+
+        // dd($post);
+        return view('backend.post.edit', compact('post', 'categories'));
     }
 
     /**
@@ -82,8 +108,8 @@ class PostController extends Controller
         $post->image = $request->input('image');
         $post->old_image = $request->input('old_image');
         $post->content = $request->input('content');
-        
-        //dd($request->all());
+        $post->category_id = $request->input('category');
+        // dd($request->all());
 
         $image = $post->old_image = $request->input('old_image');
 

@@ -62,6 +62,7 @@
                     <tr>
                       <th>ID</th>
                       <th>Title</th>
+                      <th>Category</th>
                       <th>Date</th>
                       <th>Options</th>
                     </tr>
@@ -71,7 +72,8 @@
                     <tr>
                       <td>{{ $post->id }}</td>
                       <td>{{ Str::limit($post->title, 50) }}</td>
-                      <td>{{ $post->created_at->format("m/d/Y H:i:s") }}</td>
+                      <td>{{ $post->category_title }}</td>
+                      <td>{{ $post->created_at }}</td>
                       <td>
                           <form action="{{ url('dashboard/post/'.$post->id) }}" method="post">
                           @csrf

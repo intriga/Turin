@@ -60,6 +60,16 @@
                         <div class="form-group">
                         <input class="form-control d-none" id="slug" name="slug" value="{{ $post->slug }}">
                         </div>
+
+                        <div class="form-group">
+                            <label for="inputStatus">Category</label>
+                            <select id="inputStatus" name="category" class="form-control custom-select">
+                            <option selected="" disabled="">{{ $post->category_title }}</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="form-group">
                             <textarea id="compose-textarea" name="content" name="content" class="form-control" style="height: 500px">
                                 {{ $post->content }}
