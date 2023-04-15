@@ -60,7 +60,7 @@ class PostController extends Controller
 
         $post->save();
 
-        return redirect('/dashboard/posts');
+        return redirect('/dashboard/posts')->with('info', 'Your file has been deleted.');
     }
 
     /**
@@ -136,7 +136,7 @@ class PostController extends Controller
             $post->save();
         }
 
-        return redirect('/dashboard/posts/');
+        return redirect('/dashboard/posts/')->with('success', 'Your file has been updated.');
     }
 
     /**
@@ -154,6 +154,6 @@ class PostController extends Controller
             $post->delete();
         }
         
-        return redirect('/dashboard/posts');
+        return redirect()->route('posts')->with('danger', 'Your file has been deleted.');
     }
 }

@@ -64,7 +64,7 @@
                         <div class="form-group">
                             <label for="inputStatus">Category</label>
                             <select id="inputStatus" name="category" class="form-control custom-select">
-                            <option selected="" disabled="">{{ $post->category_title }}</option>
+                            <option selected="" disabled="" value="{{ $post->category_id }}">{{ $post->category_title }}</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->title }}</option>
                                 @endforeach
