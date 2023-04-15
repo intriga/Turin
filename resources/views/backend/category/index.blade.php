@@ -16,7 +16,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Posts</h1>
+            <h1>Categories</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -37,9 +37,9 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
-                <a href="{{ url('dashboard/post/create') }}" type="button" class="btn btn-outline-success btn-block">
+                <a href="{{ url('dashboard/category/create') }}" type="button" class="btn btn-outline-success btn-block">
                   <i class="nav-icon fas fa-plus"></i>
-                  Create Post
+                  Create Category
                 </a>
                 </h3>
 
@@ -62,27 +62,25 @@
                     <tr>
                       <th>ID</th>
                       <th>Title</th>
-                      <th>Category</th>
                       <th>Date</th>
                       <th>Options</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($posts as $post)
+                    @foreach ($categories as $category)
                     <tr>
-                      <td>{{ $post->id }}</td>
-                      <td>{{ Str::limit($post->title, 50) }}</td>
-                      <td>{{ $post->category_title }}</td>
-                      <td>{{ $post->created_at }}</td>
+                      <td>{{ $category->id }}</td>
+                      <td>{{ $category->title }}</td>
+                      <td>{{ $category->created_at->format("m/d/Y H:i:s") }}</td>
                       <td>
-                          <form action="{{ url('dashboard/post/'.$post->id) }}" method="post">
+                          <form action="{{ url('dashboard/category/'.$category->id) }}" method="post">
                           @csrf
                           {{ method_field('DELETE') }}
 
-                            <a href="{{ url('dashboard/post/'.$post->slug) }}" type="button" class="btn btn-outline-primary btn-sm">
+                            <a href="{{ url('dashboard/category/'.$category->slug) }}" type="button" class="btn btn-outline-primary btn-sm">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="{{ url('dashboard/post/'.$post->id.'/edit') }}" type="button" class="btn btn-warning btn-sm">
+                            <a href="{{ url('dashboard/category/'.$category->id.'/edit') }}" type="button" class="btn btn-warning btn-sm">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <button type="submit" class="btn btn-outline-danger btn-sm">
@@ -98,7 +96,7 @@
               </div>
               <!-- /.card-body -->
             </div>
-            {{ $posts->links('vendor.pagination.bootstrap-4') }}
+            {{ $categories->links('vendor.pagination.bootstrap-4') }}
             <!-- /.card -->
           </div>
         </div>

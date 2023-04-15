@@ -30,7 +30,7 @@
                                         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
 
                                             <div class="post-meta-category">
-                                                <p><a href="#">Lifestyle</a></p>
+                                                <p><a href="{{ url('/category/'.$post->category_slug) }}">{{ $post->category_title }}</a></p>
                                             </div>
 
                                             <div class="post-title">

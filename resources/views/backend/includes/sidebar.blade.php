@@ -40,6 +40,14 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{ route('categories') }}" class="nav-link">
+                    <i class="nav-icon fas fa-solid fa-list"></i>
+                    <p>
+                        Categories
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ route('logout') }}" class="nav-link"
                     onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
