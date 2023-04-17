@@ -1,5 +1,10 @@
 @extends('backend.layouts.app')
 
+@push('styles')
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="{{ asset('backend/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+@endpush
+
 @section('content')
     <!-- Navbar -->
     @include('backend.includes.navbar')
@@ -73,7 +78,7 @@
                       <td>{{ $category->title }}</td>
                       <td>{{ $category->created_at->format("m/d/Y H:i:s") }}</td>
                       <td>
-                          <form action="{{ url('dashboard/category/'.$category->id) }}" method="post">
+                          <form id="formulario" action="{{ url('dashboard/category/'.$category->id) }}" method="post">
                           @csrf
                           {{ method_field('DELETE') }}
 
@@ -83,7 +88,7 @@
                             <a href="{{ url('dashboard/category/'.$category->id.'/edit') }}" type="button" class="btn btn-warning btn-sm">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                            <button id="deletePost" type="submit" class="btn btn-outline-danger btn-sm">
                                 <i class="fas fa-trash"></i>
                             </button>
 
@@ -114,3 +119,74 @@
   @include('backend.includes.footer')
 
 @endsection
+
+@push('scripts')
+    <!-- SweetAlert2 -->
+    <script src="{{ asset('backend/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+
+    <script>
+
+        const removePost = document.getElementById('deletePost');
+
+        eventListeners();
+
+        function eventListeners(e) {
+            removePost.addEventListener('click', deletePost);
+        }
+
+        function deletePost(e) {
+            e.preventDefault();
+            // console.log('eliminado');
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('formulario').submit();
+                }
+                
+            })
+        }
+        
+    </script>
+    <!-- DELETE POST -->
+    @if (session('danger'))
+        <script>
+            Swal.fire(
+                'Deleted!',
+                'Your post has been deleted.',
+                'success'
+            )
+        </script>
+    @endif
+
+    <!-- CREATE POST -->
+    @if (session('info'))
+        <script>
+            Swal.fire(
+                'Created!',
+                'Your post has been created.',
+                'success'
+            )
+        </script>
+    @endif
+
+    <!-- UPDATE POST -->
+    @if (session('success'))
+        <script>
+            Swal.fire(
+                'Created!',
+                'Your post has been updated.',
+                'success'
+            )
+        </script>
+    @endif
+
+@endpush
+

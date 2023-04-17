@@ -38,7 +38,7 @@ class CategoryController extends Controller
 
         $category->save();
 
-        return redirect('/dashboard/categories');
+        return redirect('/dashboard/categories')->with('info', 'Your file has been created.');
     }
 
     /**
@@ -71,7 +71,7 @@ class CategoryController extends Controller
                 
         $category->save();
 
-        return redirect('/dashboard/categories/');
+        return redirect('/dashboard/categories/')->with('success', 'Your category has been updated.');
     }
 
     /**
@@ -82,6 +82,6 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $category->delete();
         
-        return redirect('/dashboard/categories');
+        return redirect('/dashboard/categories')->with('danger', 'Your category has been deleted.');
     }
 }
