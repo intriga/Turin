@@ -40,6 +40,7 @@
         <div class="row">
           <div class="col-12">
             <div class="card">
+              @if(auth()->user()->can('create')) <!-- Check if the user can create articles -->
               <div class="card-header">
                 <h3 class="card-title">
                 <a href="{{ url('dashboard/category/create') }}" type="button" class="btn btn-outline-success btn-block">
@@ -47,22 +48,12 @@
                   Create Category
                 </a>
                 </h3>
-
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                
               </div>
+              @endif
               <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
+              <div class="card-body">
+                <table id="example" class="table table-striped text-center" style="width:100%">
                   <thead>
                     <tr>
                       <th>ID</th>
@@ -85,12 +76,14 @@
                             <a href="{{ url('dashboard/category/'.$category->slug) }}" type="button" class="btn btn-outline-primary btn-sm">
                                 <i class="fas fa-eye"></i>
                             </a>
+                            @if(auth()->user()->can('create'))
                             <a href="{{ url('dashboard/category/'.$category->id.'/edit') }}" type="button" class="btn btn-warning btn-sm">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <button id="deletePost" type="submit" class="btn btn-outline-danger btn-sm">
                                 <i class="fas fa-trash"></i>
                             </button>
+                            @endif
 
                           </form>
                       </td>
@@ -101,7 +94,7 @@
               </div>
               <!-- /.card-body -->
             </div>
-            {{ $categories->links('vendor.pagination.bootstrap-4') }}
+            
             <!-- /.card -->
           </div>
         </div>
@@ -120,7 +113,27 @@
 
 @endsection
 
+@push('css')
+    <!-- datatables -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
+
+@endpush
+
 @push('scripts')
+    <!-- datatables -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
+
+    <script>
+        new DataTable('#example', {
+            order: [[0, 'desc']]
+        });
+    </script>
+
+    
     <!-- SweetAlert2 -->
     <script src="{{ asset('backend/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 

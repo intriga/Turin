@@ -22,7 +22,7 @@ class UserController extends Controller
             return view('backend.user.index', compact('users'));
         } else {
             // Return a JSON response with a 403 status code if unauthorized
-            return response()->json(['message' => 'Unauthorized'], 403);
+            abort(403);
         }
     }
 
@@ -35,7 +35,7 @@ class UserController extends Controller
             return view('backend.user.create');
         } else {
             // Return a JSON response with a 403 status code if unauthorized
-            return response()->json(['message' => 'Unauthorized'], 403);
+            abort(403);
         }
     }
 
@@ -64,7 +64,7 @@ class UserController extends Controller
             return view('backend.user.show', compact('user'));
         } else {
             // Return a JSON response with a 403 status code if unauthorized
-            return response()->json(['message' => 'Unauthorized'], 403);
+            abort(403);
         }
     }
 
@@ -78,7 +78,7 @@ class UserController extends Controller
             return view('backend.user.edit', compact('user'));
         } else {
             // Return a JSON response with a 403 status code if unauthorized
-            return response()->json(['message' => 'Unauthorized'], 403);
+            abort(403);
         }
     }
 
@@ -110,7 +110,7 @@ class UserController extends Controller
             return redirect('/dashboard/users')->with('danger', 'Your user has been deleted.');
         } else {
             // Return a JSON response with a 403 status code if unauthorized
-            return response()->json(['message' => 'Unauthorized'], 403);
+            abort(403);
         }
     }
 }

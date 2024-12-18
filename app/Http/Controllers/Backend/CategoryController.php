@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -24,7 +25,11 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('backend.category.create');
+        if (Auth::user()->can('create')) {
+            return view('backend.category.create');
+        } else {
+            abort(403, 'forbidden access to this resource'); // This will show the default 403 error page
+        }
     }
 
     /**
@@ -55,8 +60,12 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        $category = Category::where('id', $id)->first();
-        return view('backend.category.edit', compact('category'));
+        if (Auth::user()->can('create')) {
+            $category = Category::where('id', $id)->first();
+            return view('backend.category.edit', compact('category'));
+        } else {
+            abort(403, 'forbidden access to this resource'); // This will show the default 403 error page
+        }
     }
 
     /**
@@ -79,9 +88,13 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $category = Category::find($id);
-        $category->delete();
-        
-        return redirect('/dashboard/categories')->with('danger', 'Your category has been deleted.');
+        if (Auth::user()->can('create')) {
+            $category = Category::find($id);
+            $category->delete();
+            
+            return redirect('/dashboard/categories')->with('danger', 'Your category has been deleted.');
+        } else {
+            abort(403, 'forbidden access to this resource'); // This will show the default 403 error page
+        }
     }
 }

@@ -26,8 +26,7 @@ class PostController extends Controller
         $posts = DB::table('posts')
             ->join('categories', 'posts.category_id', '=', 'categories.id')
             ->select('posts.id', 'posts.title', 'posts.slug', 'posts.created_at', 'categories.title AS category_title')
-            ->orderBy('id', 'desc')
-            ->paginate(10);
+            ->get('id', 'desc');
 
         return view('backend.post.index', compact('posts'));
     }
@@ -42,7 +41,7 @@ class PostController extends Controller
                 ->latest()        
                 ->get();
         } else {
-            return response()->json(['message' => 'Unauthorized'], 403);
+            abort(403, 'forbidden access to this resource'); // This will show the default 403 error page
         }
         //dd($categories);
         return view('backend.post.create', compact('categories'));
@@ -99,7 +98,7 @@ class PostController extends Controller
                 ->latest()        
                 ->get();
         } else {
-            return response()->json(['message' => 'Unauthorized'], 403);
+            abort(403, 'forbidden access to this resource'); // This will show the default 403 error page
         }
 
         // dd($post);
@@ -166,7 +165,7 @@ class PostController extends Controller
                 $post->delete();
             }
         } else {
-            return response()->json(['message' => 'Unauthorized'], 403);
+            abort(403, 'forbidden access to this resource'); // This will show the default 403 error page
         }
         
         return redirect()->route('posts')->with('danger', 'Your file has been deleted.');
