@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             
             $table->text('title', 100);
-            $table->text('slug', 100)->unique();
+            $table->text('slug', 100);
             $table->text('content');
             $table->text('image')->nullable();
             $table->text('old_image')->nullable();

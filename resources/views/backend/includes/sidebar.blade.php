@@ -48,6 +48,14 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{ route('users') }}" class="nav-link">
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                        Users
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ route('logout') }}" class="nav-link"
                     onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">

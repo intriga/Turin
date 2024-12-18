@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\UserController;
 
 
 
@@ -65,5 +66,14 @@ Route::middleware(['auth', 'dashboard'])->prefix('dashboard')->namespace('dashbo
     Route::get('/category/{id}/edit', [CategoryController::class, 'edit']);
     Route::post('/category/{id}/edit', [CategoryController::class, 'update']);
     Route::delete('/category/{id}', [CategoryController::class, 'destroy']);  
+
+    // Module users
+    Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::get('/user/create', [UserController::class, 'create']);
+    Route::post('/user/', [UserController::class, 'store']);  
+    Route::get('/user/{id}', [UserController::class, 'show']);
+    Route::get('/user/{id}/edit', [UserController::class, 'edit']);
+    Route::post('/user/{id}/edit', [UserController::class, 'update']);
+    Route::delete('/user/{id}', [UserController::class, 'destroy']); 
 
 });
