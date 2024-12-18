@@ -42,12 +42,14 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
+                                @if(auth()->user()->can('create')) <!-- Check if the user can create articles -->
                                 <h3 class="card-title">
                                     <a href="{{ url('dashboard/post/create') }}" type="button" class="btn btn-outline-success btn-block">
                                         <i class="nav-icon fas fa-plus"></i>
                                         Create Post
                                     </a>
                                 </h3>
+                                @endif
 
                                 <div class="card-tools">
                                     <div class="input-group input-group-sm" style="width: 150px;">
@@ -88,13 +90,17 @@
                                                 <a href="{{ url('dashboard/post/'.$post->slug) }}" type="button" class="btn btn-outline-primary btn-sm">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <a href="{{ url('dashboard/post/'.$post->id.'/edit') }}" type="button" class="btn btn-warning btn-sm">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                
+                                                @if(auth()->user()->can('update')) <!-- Check if the user can update articles -->
+                                                    <a href="{{ url('dashboard/post/'.$post->id.'/edit') }}" type="button" class="btn btn-warning btn-sm">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                @endif
+
+                                                @if(auth()->user()->can('delete')) <!-- Check if the user can delete articles -->
                                                 <button type="submit" id="deletePost" class="btn btn-outline-danger btn-sm">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
+                                                @endif
 
                                                 </form>
                                             </td>

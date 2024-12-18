@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
 {
@@ -14,9 +16,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::get();
-        // dd($users);
-        return view('backend.user.index', compact('users'));
+        if (Auth::user()->can('view users')) {
+            $users = User::get();
+            // dd($users);
+            return view('backend.user.index', compact('users'));
+        } else {
+            // Return a JSON response with a 403 status code if unauthorized
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
     }
 
     /**
@@ -24,7 +31,12 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('backend.user.create');
+        if (Auth::user()->can('view users')) {
+            return view('backend.user.create');
+        } else {
+            // Return a JSON response with a 403 status code if unauthorized
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
     }
 
     /**
@@ -47,8 +59,13 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $user = User::where('id', $id)->first();
-        return view('backend.user.show', compact('user'));
+        if (Auth::user()->can('view users')) {
+            $user = User::where('id', $id)->first();
+            return view('backend.user.show', compact('user'));
+        } else {
+            // Return a JSON response with a 403 status code if unauthorized
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
     }
 
     /**
@@ -56,8 +73,13 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        $user = User::where('id', $id)->first();
-        return view('backend.user.edit', compact('user'));
+        if (Auth::user()->can('view users')) {
+            $user = User::where('id', $id)->first();
+            return view('backend.user.edit', compact('user'));
+        } else {
+            // Return a JSON response with a 403 status code if unauthorized
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
     }
 
     /**
@@ -81,9 +103,14 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = User::find($id);
-        $user->delete();
-        
-        return redirect('/dashboard/users')->with('danger', 'Your user has been deleted.');
+        if (Auth::user()->can('view users')) {
+            $user = User::find($id);
+            $user->delete();
+            
+            return redirect('/dashboard/users')->with('danger', 'Your user has been deleted.');
+        } else {
+            // Return a JSON response with a 403 status code if unauthorized
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
     }
 }

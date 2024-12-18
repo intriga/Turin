@@ -47,6 +47,7 @@
                     </p>
                 </a>
             </li>
+            @if(auth()->user()->hasRole('admin')) <!-- Check if the user has the admin role -->
             <li class="nav-item">
                 <a href="{{ route('users') }}" class="nav-link">
                     <i class="nav-icon fas fa-users"></i>
@@ -55,6 +56,7 @@
                     </p>
                 </a>
             </li>
+            @endif
             <li class="nav-item">
                 <a href="{{ route('logout') }}" class="nav-link"
                     onclick="event.preventDefault();

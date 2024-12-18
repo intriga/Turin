@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 use App\Models\Post;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
+
+
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -34,9 +37,13 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::select('id', 'title')
-            ->latest()        
-            ->get();
+        if (Auth::user()->can('create')) {
+            $categories = Category::select('id', 'title')
+                ->latest()        
+                ->get();
+        } else {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
         //dd($categories);
         return view('backend.post.create', compact('categories'));
     }
@@ -78,18 +85,22 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        // $post = Post::where('id', $id)->first();
-        $post = DB::table('posts')
-            ->select('posts.*', 'categories.title AS category_title')
-            ->join('categories', 'posts.category_id', '=', 'categories.id')
-            ->where(function ($query) use ($id) {
-                $query->where('posts.id', '=', $id);
-            })
-            ->first();
-        
-            $categories = Category::select('id', 'title')
-            ->latest()        
-            ->get();
+        if (Auth::user()->can('create')) {
+            // $post = Post::where('id', $id)->first();
+            $post = DB::table('posts')
+                ->select('posts.*', 'categories.title AS category_title')
+                ->join('categories', 'posts.category_id', '=', 'categories.id')
+                ->where(function ($query) use ($id) {
+                    $query->where('posts.id', '=', $id);
+                })
+                ->first();
+            
+                $categories = Category::select('id', 'title')
+                ->latest()        
+                ->get();
+        } else {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
 
         // dd($post);
         return view('backend.post.edit', compact('post', 'categories'));
@@ -144,14 +155,18 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        $post = Post::find($id);
+        if (Auth::user()->can('create')) {
+            $post = Post::find($id);
 
-        if ($post->image) {
-            $image = $post->image;
-            unlink(storage_path('app/public/images' . substr($image, 15) ));            
-            $post->delete();
-        }else{
-            $post->delete();
+            if ($post->image) {
+                $image = $post->image;
+                unlink(storage_path('app/public/images' . substr($image, 15) ));            
+                $post->delete();
+            }else{
+                $post->delete();
+            }
+        } else {
+            return response()->json(['message' => 'Unauthorized'], 403);
         }
         
         return redirect()->route('posts')->with('danger', 'Your file has been deleted.');
