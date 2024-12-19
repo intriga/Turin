@@ -11,6 +11,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 
 
 use Illuminate\Support\Facades\Storage;
@@ -47,7 +49,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
         $post = new Post();
         $post->title = $request->input('title');
@@ -97,43 +99,41 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdatePostRequest $request, string $id)
     {
+    
         $post = Post::find($id);
 
+        // Update the post fields
         $post->title = $request->input('title');
         $post->slug = $request->input('slug');
-        
-        $post->image = $request->input('image');
-        // $post->old_image = $request->input('old_image');
         $post->content = $request->input('content');
         $post->category_id = $request->input('category');
-        // dd($request->all());
 
-            // Handle image upload
-            // Handle image upload
-    if ($request->hasFile('image')) {
-        // Delete the old image if it exists
-        if (File::exists(public_path($post->image))) {
-            File::delete(public_path($post->image));
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            // Delete the old image if it exists
+            if (File::exists(public_path($post->image))) {
+                File::delete(public_path($post->image));
+            }
+
+            // Move the new image
+            $image = $request->file('image');
+            $fileName = $image->hashName();
+            $imagePath = '/images/' . $fileName;
+            $image->move(public_path('images'), $fileName);
+
+            // Set the new image path
+            $post->image = $imagePath;
         }
+        //dd($post);
 
-        // Move the new image
-        $image = $request->file('image');
-        $fileName = $image->hashName();
-        $imagePath = '/images/' . $fileName;
-        $image->move(public_path('images'), $fileName);
-
-        // Set the new image path
-        $post->image = $imagePath;
-    }
-
-
-        // dd($post);
+        // Save the updated post
         $post->save();
 
         return redirect('/dashboard/posts/')->with('success', 'Your file has been updated.');
     }
+
 
     /**
      * Remove the specified resource from storage.

@@ -51,9 +51,13 @@
                         <!-- /.card-header -->
                         <form method="post" action="{{ url('/dashboard/post/'.$post->id.'/edit') }}" enctype="multipart/form-data">
                             {{ csrf_field() }}
-                            <div class="card-body">
+                            <div class="card-body">                                
+
                                 <div class="form-group">
                                     <input class="form-control" id="title" name="title" value="{{ $post->title }}">
+                                    @error('title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control d-none" id="slug" name="slug" value="{{ $post->slug }}">
@@ -70,16 +74,21 @@
                                         </option>
                                     @endforeach
                                     </select>
+                                    @error('category')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <textarea id="compose-textarea" name="content" name="content" class="form-control" style="height: 500px">
                                         {{ $post->content }}
                                     </textarea>
+                                    @error('content')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 
                                     <div class="text-center">
-                                        <img src="{{ asset($post->image) }}"  name="image" class="img-fluid rounded w-50 p-5">
-                                        <input type="hidden" name="image" value="{{ $post->image }}">
+                                        <img src="{{ asset($post->image) }}" class="img-fluid rounded w-50 p-5">
                                     </div>
                                 
                                 <div class="form-group">
@@ -88,6 +97,9 @@
                                         <input type="file" id="image" name="image">
                                     </div>
                                     <p class="help-block">Max. 32MB</p>
+                                    @error('image')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -131,10 +143,13 @@
 <script src="{{ asset('backend/stringToSlug/jquery.stringtoslug.js') }}"></script>
 
 <script>
-$(function () {
-    //Add text editor
-    $('#compose-textarea').summernote()
-})
+    // sumernote
+    $(function () {
+        //Add text editor
+        $('#compose-textarea').summernote({
+            height: 400
+        })
+    })
 
     // stringtoslug
     $(document).ready( function() {

@@ -47,14 +47,27 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <input type="text" class="form-control" name="name" placeholder="Name">
+                                    @error('name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <input type="email" class="form-control" name="email" placeholder="Email">
+                                    @error('email')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <input type="password" class="form-control" name="password" placeholder="password">
+                                    @error('password')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" required placeholder="password confirmation">
                                 </div>
                             </div>
 

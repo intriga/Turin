@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+
 
 class UserController extends Controller
 {
@@ -42,12 +45,12 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
         $user = new User();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->password = $request->input('password');
+        $user->password = bcrypt($request->input('password')); // Hash the password before saving
 
         $user->save();
 
@@ -85,17 +88,22 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateUserRequest $request, string $id)
     {
         $user = User::find($id);
 
+        // Update the user fields
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->password = $request->input('password');
-                
+
+        // Only update the password if it is provided
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->input('password')); // Hash the password before saving
+        }
+
         $user->save();
 
-        return redirect('/dashboard/users/')->with('success', 'Your user has been updated.');
+        return redirect('/dashboard/users/')->with('success', 'Your user has been updated successfully.');
     }
 
     /**

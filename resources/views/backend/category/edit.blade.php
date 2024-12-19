@@ -54,6 +54,9 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <input class="form-control" id="title" name="title" value="{{ $category->title }}">
+                                    @error('title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control d-none" id="slug" name="slug" value="{{ $category->slug }}">

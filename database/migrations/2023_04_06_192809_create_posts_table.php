@@ -29,7 +29,7 @@ return new class extends Migration
             $table->text('slug', 100);
             $table->text('content');
             $table->text('image')->nullable();
-            $table->text('old_image')->nullable();
+            // $table->text('old_image')->nullable();
             
             $table->timestamps();
             

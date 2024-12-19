@@ -45,12 +45,15 @@
                             <!-- /.card-header -->
                             <form method="post" action="{{ url('/dashboard/post') }}" enctype="multipart/form-data">
                                 {{ csrf_field() }}
-                                <div class="card-body">
+                                <div class="card-body">                                  
 
                                     <div class="row">
                                         <div class="form-group col-6">
                                             <label for="inputStatus">Title Post</label>
-                                            <input class="form-control" id="title" name="title" placeholder="Title">
+                                            <input class="form-control" id="title" name="title" placeholder="Title" value="{{ old('title') }}">
+                                            @error('title')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-6">
@@ -58,20 +61,25 @@
                                             <select id="inputStatus" name="category" class="form-control custom-select">
                                                 <option selected="" disabled="">Select Category</option>
                                                 @foreach ($categories as $category)
-                                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
+                                                    <option value="{{ $category->id }}" {{ old('category') == $category->id ? 'selected' : '' }}>{{ $category->title }}</option>
                                                 @endforeach
                                             </select>
+                                            @error('category')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
-                                    
 
                                     <div class="form-group">
-                                        <input class="form-control d-none" id="slug" name="slug" placeholder="Slug">
+                                        <input class="form-control d-none" id="slug" name="slug" placeholder="Slug" value="{{ old('slug') }}">
+                                        
                                     </div>
 
                                     <div class="form-group">
-                                        <textarea id="compose-textarea" name="content" name="content" class="form-control" style="height: 500px">                                        
-                                        </textarea>
+                                        <textarea id="compose-textarea" name="content" class="form-control" style="height: 500px">{{ old('content') }}</textarea>
+                                        @error('content')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group">
@@ -80,24 +88,21 @@
                                             <input type="file" id="image" name="image">
                                         </div>
                                         <p class="help-block">Max. 32MB</p>
+                                        @error('image')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <!-- /.card-body -->
                                 <div class="card-footer">
                                     <div class="float-right">
-                                    <!-- 
-                                    <button type="button" class="btn btn-default"><i class="fas fa-pencil-alt"></i> Draft</button>
-                                    -->
-                                    <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i> Create</button>
+                                        <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i> Create</button>
                                     </div>
-                                    <!-- 
-                                    <button type="reset" class="btn btn-default"><i class="fas fa-times"></i> Discard</button>
-                                    -->
                                 </div>
                                 <!-- /.card-footer -->
-
                             </form>
+
                                         
                         </div>
                         <!-- /.card -->
