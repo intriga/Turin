@@ -46,27 +46,31 @@
                             <form method="post" action="{{ url('/dashboard/post') }}" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <div class="card-body">
-                                    <div class="form-group">
-                                        <input class="form-control" id="title" name="title" placeholder="Title">
-                                    </div>
 
-                                    <div class="form-group">
-                                        <label for="inputStatus">Category</label>
-                                        <select id="inputStatus" name="category" class="form-control custom-select">
-                                            <option selected="" disabled="">Select Category</option>
-                                            @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->title }}</option>
-                                            @endforeach
-                                        </select>
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label for="inputStatus">Title Post</label>
+                                            <input class="form-control" id="title" name="title" placeholder="Title">
+                                        </div>
+
+                                        <div class="form-group col-6">
+                                            <label for="inputStatus">Category</label>
+                                            <select id="inputStatus" name="category" class="form-control custom-select">
+                                                <option selected="" disabled="">Select Category</option>
+                                                @foreach ($categories as $category)
+                                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
+                                    
 
                                     <div class="form-group">
                                         <input class="form-control d-none" id="slug" name="slug" placeholder="Slug">
                                     </div>
 
                                     <div class="form-group">
-                                        <textarea id="compose-textarea" name="content" name="content" class="form-control" style="height: 500px">
-                                        
+                                        <textarea id="compose-textarea" name="content" name="content" class="form-control" style="height: 500px">                                        
                                         </textarea>
                                     </div>
 
@@ -120,10 +124,14 @@
     <script src="{{ asset('backend/stringToSlug/jquery.stringtoslug.js') }}"></script>
 
     <script>
-    $(function () {
-        //Add text editor
-        $('#compose-textarea').summernote()
-    })
+
+        // sumernote
+        $(function () {
+            //Add text editor
+            $('#compose-textarea').summernote({
+                height: 400
+            })
+        })
 
      // stringtoslug
      $(document).ready( function() {

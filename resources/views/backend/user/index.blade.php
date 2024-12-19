@@ -25,8 +25,8 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Simple Tables</li>
+              <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+              <li class="breadcrumb-item active">Users</li>
             </ol>
           </div>
         </div>
@@ -49,8 +49,8 @@
                 </h3>
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
-                <table id="example" class="table table-hover text-nowrap">
+              <div class="card-body table-responsive">
+                <table id="example" class="table table-striped table-bordered table-sm" style="width:100%">
                   <thead>
                     <tr>
                       <th>ID</th>
@@ -110,26 +110,21 @@
 
 {{-- Add common CSS customizations --}}
 
-@push('css')
-    <!-- datatables -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
-
-@endpush
-
 @push('scripts')
-
     <!-- datatables -->
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap4.js"></script>
 
     <script>
         new DataTable('#example', {
             order: [[0, 'desc']]
         });
     </script>
+
+
     <!-- SweetAlert2 -->
     <script src="{{ asset('backend/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 

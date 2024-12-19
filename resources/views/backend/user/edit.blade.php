@@ -43,7 +43,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Create New User</h3>
                             <div class="card-tools">
-                                <a href="{{ url('dashboard/user') }}" class="btn btn-default" title="Previous">
+                                <a href="{{ url('dashboard/users') }}" class="btn btn-default" title="Previous">
                                 <i class="fas fa-reply"></i>
                                 </a>
                             </div>

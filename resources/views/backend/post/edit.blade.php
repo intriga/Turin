@@ -63,10 +63,12 @@
                                     <label for="inputStatus">Category</label>
                                     <input type="hidden" name="category" value="{{ $post->category_id }}">
                                     <select id="inputStatus" name="category" class="form-control custom-select">
-                                    <option selected="" disabled="">Select Category</option>
-                                        @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->title }}</option>
-                                        @endforeach
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}" 
+                                            {{ $category->id == $post->category_id ? 'selected' : '' }}>
+                                            {{ $category->title }}
+                                        </option>
+                                    @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -76,8 +78,8 @@
                                 </div>
                                 
                                     <div class="text-center">
-                                        <img src="{{ asset($post->image) }}"  name="old_image" class="img-fluid rounded w-50 p-5">
-                                        <input type="hidden" name="old_image" value="{{ $post->image }}">
+                                        <img src="{{ asset($post->image) }}"  name="image" class="img-fluid rounded w-50 p-5">
+                                        <input type="hidden" name="image" value="{{ $post->image }}">
                                     </div>
                                 
                                 <div class="form-group">

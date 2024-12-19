@@ -27,9 +27,7 @@
                                             <div class="single-page-other-information-holder">
                                                 <div class="posted-category">
                                                     <div class="post-meta-category">
-                                                        <span><a href="#">Lifestyle</a></span>
-                                                        <span><a href="#">Health</a></span>
-                                                        <span><a href="#">Art</a></span>
+                                                        <span><a href="{{ url('/category/'.$post->category->slug) }}">{{ $post->category->title }}</a></span>
                                                     </div>
                                                 </div>
                                                 <div class="post-title">
@@ -41,7 +39,7 @@
                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                             <div class="post-author">
                                                                 <img src="{{ asset('frontend/assets/dist/img/author4242.png') }}" alt="....">
-                                                                <span><a href="#">Sparkle Themes</a></span>
+                                                                <span><a href="#">{{ $post->user->name }}</a></span>
                                                             </div>
                                                         </div>
                                                         <!-- // col -->

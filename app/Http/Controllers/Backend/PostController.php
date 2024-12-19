@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 
 
@@ -21,13 +23,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        // $posts = Post::orderBy('id', 'desc')
-        //     ->paginate(10);
-        $posts = DB::table('posts')
-            ->join('categories', 'posts.category_id', '=', 'categories.id')
-            ->select('posts.id', 'posts.title', 'posts.slug', 'posts.created_at', 'categories.title AS category_title')
-            ->get('id', 'desc');
-
+        $posts = Post::with('category', 'user')->get();
+        // dd($posts);
         return view('backend.post.index', compact('posts'));
     }
 
@@ -57,11 +54,13 @@ class PostController extends Controller
         $post->slug = $request->input('slug');
         $post->category_id = $request->input('category');
         $post->content = $request->input('content');
+        $post->user_id = Auth::id(); // Associate the post with the currently authenticated user
 
-        if ($request->allFiles('image')) {     
+           // Handle image upload
+        if ($request->hasFile('image')) {
             $fileName = $request->file('image')->hashName();
-            $path = $request->file('image')->storeAs('images', $fileName, 'public');
-            $post["image"] = '/storage/'.$path;
+            $request->file('image')->move(public_path('images'), $fileName); // Move the file
+            $post->image = '/images/' . $fileName; // Set the image path
         }
 
         $post->save();
@@ -84,19 +83,9 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        if (Auth::user()->can('create')) {
-            // $post = Post::where('id', $id)->first();
-            $post = DB::table('posts')
-                ->select('posts.*', 'categories.title AS category_title')
-                ->join('categories', 'posts.category_id', '=', 'categories.id')
-                ->where(function ($query) use ($id) {
-                    $query->where('posts.id', '=', $id);
-                })
-                ->first();
-            
-                $categories = Category::select('id', 'title')
-                ->latest()        
-                ->get();
+        if (Auth::user()->can('create')) {            
+            $post = Post::where('id', $id)->first();
+            $categories = Category::get();
         } else {
             abort(403, 'forbidden access to this resource'); // This will show the default 403 error page
         }
@@ -116,35 +105,32 @@ class PostController extends Controller
         $post->slug = $request->input('slug');
         
         $post->image = $request->input('image');
-        $post->old_image = $request->input('old_image');
+        // $post->old_image = $request->input('old_image');
         $post->content = $request->input('content');
         $post->category_id = $request->input('category');
         // dd($request->all());
 
-        $image = $post->old_image = $request->input('old_image');
-
-        if ($request->allFiles('image') && $post->old_image == null) {
-            !is_null($image) && Storage::delete($image);
-            $fileName = $request->file('image')->hashName();
-            $files = $request->file('image')->storeAs('images', $fileName, 'public');
-            $post["image"] = '/storage/'.$files;           
-            
-            $post->save();
-
-        }elseif ($request->allFiles('image')) {
-
-            !is_null($image) && Storage::delete($image);
-            unlink(storage_path('app/public/images' . substr($image, 15) ));
-            $fileName = $request->file('image')->hashName();
-            $files = $request->file('image')->storeAs('images', $fileName, 'public');
-            $post["image"] = '/storage/'.$files;            
-            
-            $post->save();
-
-        }else{
-            $post->image = $post->old_image;
-            $post->save();
+            // Handle image upload
+            // Handle image upload
+    if ($request->hasFile('image')) {
+        // Delete the old image if it exists
+        if (File::exists(public_path($post->image))) {
+            File::delete(public_path($post->image));
         }
+
+        // Move the new image
+        $image = $request->file('image');
+        $fileName = $image->hashName();
+        $imagePath = '/images/' . $fileName;
+        $image->move(public_path('images'), $fileName);
+
+        // Set the new image path
+        $post->image = $imagePath;
+    }
+
+
+        // dd($post);
+        $post->save();
 
         return redirect('/dashboard/posts/')->with('success', 'Your file has been updated.');
     }
@@ -158,10 +144,12 @@ class PostController extends Controller
             $post = Post::find($id);
 
             if ($post->image) {
-                $image = $post->image;
-                unlink(storage_path('app/public/images' . substr($image, 15) ));            
+                $imagePath = public_path($post->image); // Get the absolute path to the image        
+                if (File::exists($imagePath)) {
+                    File::delete($imagePath); // Delete the file using Laravel's File facade
+                }        
                 $post->delete();
-            }else{
+            } else {
                 $post->delete();
             }
         } else {
