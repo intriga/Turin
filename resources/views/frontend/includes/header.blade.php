@@ -7,6 +7,9 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-8">
                         <div class="site-info">
+                            <!-- <a href="{{ url('/') }}" rel="noopener noreferrer">
+                                <h1 class="site-title">Turin</h1>
+                            </a>                             -->
                             <h1 class="site-title">Turin</h1>
                         </div>
                         <!-- // site-info -->

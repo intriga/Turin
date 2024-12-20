@@ -38,11 +38,11 @@
                             <h3 class="card-title"></h3>
 
                             <div class="card-tools">
-                                <a href="{{ url('/post/'.$post->slug) }}" class="btn btn-outline-primary" title="Previous">
+                                <a href="{{ url('/post/'.$post->slug) }}" class="btn btn-outline-primary" target="_blank">
                                 Watch Post
                                 </a>
                                 <a href="{{ url('dashboard/posts') }}" class="btn btn-default" title="Previous">
-                                <i class="fas fa-reply"></i>
+                                    <i class="fas fa-reply"></i>
                                 </a>
                                 
                             </div>

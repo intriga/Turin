@@ -25,7 +25,15 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('category', 'user')->get();
+        $user = Auth::user();
+
+        if ($user->hasRole('admin')) {
+            // Admin can see all posts
+            $posts = Post::with('category', 'user')->get();
+        } else {
+            // Regular users can only see their own posts
+            $posts = $user->posts;
+        }
         // dd($posts);
         return view('backend.post.index', compact('posts'));
     }
@@ -77,6 +85,9 @@ class PostController extends Controller
     {
         // $post = Post::find($id);
         $post = Post::where('slug', $slug)->first();
+        
+        $this->authorize('view', $post);
+        
         return view('backend.post.show', compact('post'));
     }
 
@@ -91,6 +102,8 @@ class PostController extends Controller
         } else {
             abort(403, 'forbidden access to this resource'); // This will show the default 403 error page
         }
+
+        $this->authorize('view', $post);
 
         // dd($post);
         return view('backend.post.edit', compact('post', 'categories'));
@@ -108,7 +121,7 @@ class PostController extends Controller
         $post->title = $request->input('title');
         $post->slug = $request->input('slug');
         $post->content = $request->input('content');
-        $post->category_id = $request->input('category');
+        $post->category_id = $request->input('category');        
 
         // Handle image upload
         if ($request->hasFile('image')) {
@@ -126,7 +139,7 @@ class PostController extends Controller
             // Set the new image path
             $post->image = $imagePath;
         }
-        //dd($post);
+        // dd($request->all());
 
         // Save the updated post
         $post->save();

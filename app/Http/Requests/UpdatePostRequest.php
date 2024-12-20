@@ -28,7 +28,7 @@ class UpdatePostRequest extends FormRequest
             'slug' => 'required|string|max:255|unique:posts,slug,' . $postId . '|regex:/^[a-z0-9\-]+$/',
             'category' => 'required|exists:categories,id',
             'content' => 'required|string',
-            'image' => 'nullable|string|image|mimes:jpeg,png,jpg,gif|max:2048', // Optional image validation
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Optional image validation
         ];
     }
 
