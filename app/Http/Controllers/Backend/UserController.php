@@ -52,6 +52,9 @@ class UserController extends Controller
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password')); // Hash the password before saving
 
+        // Assign the selected role to the user
+        $user->assignRole($request->role);
+
         $user->save();
 
         return redirect('/dashboard/users')->with('info', 'Your file has been created.');
@@ -102,6 +105,9 @@ class UserController extends Controller
         }
 
         $user->save();
+
+        // Sync the role
+        $user->syncRoles($request->role); // Use syncRoles to update the role
 
         return redirect('/dashboard/users/')->with('success', 'Your user has been updated successfully.');
     }

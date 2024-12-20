@@ -46,6 +46,7 @@
                             {{ csrf_field() }}
                             <div class="card-body">
                                 <div class="form-group">
+                                    <label>Name</label>
                                     <input type="text" class="form-control" name="name" placeholder="Name">
                                     @error('name')
                                         <div class="text-danger">{{ $message }}</div>
@@ -53,6 +54,7 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label>Email</label>
                                     <input type="email" class="form-control" name="email" placeholder="Email">
                                     @error('email')
                                         <div class="text-danger">{{ $message }}</div>
@@ -60,6 +62,7 @@
                                 </div>
 
                                 <div class="form-group">
+                                <label>Password</label>
                                     <input type="password" class="form-control" name="password" placeholder="password">
                                     @error('password')
                                         <div class="text-danger">{{ $message }}</div>
@@ -67,8 +70,24 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label>Password Confirmation</label>
                                     <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" required placeholder="password confirmation">
                                 </div>
+
+                                <!-- Role Selection -->
+                                <div class="form-group">
+                                    <label for="role">Select Role</label>
+                                    <select class="form-control" name="role" id="role" required>
+                                        <option value="" disabled selected>Select a role</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="editor">Editor</option>
+                                        <option value="guest">Guest</option>
+                                    </select>
+                                    @error('role')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
                             </div>
 
                             <!-- /.card-body -->

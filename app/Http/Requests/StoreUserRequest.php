@@ -24,6 +24,7 @@ class StoreUserRequest extends FormRequest
                 'unique:users,email', // Ensure email is unique in users table
             ],
             'password' => 'required|string|min:8|confirmed', // Password must be at least 8 characters and confirmed
+            'role' => 'required|in:admin,editor,guest', // Validate role
         ];
     }
 

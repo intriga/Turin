@@ -31,13 +31,22 @@ class RolesAndPermissionsSeeder extends Seeder
 
         // Create roles
         $adminRole = Role::create(['name' => 'admin']);
+        $editorRole = Role::create(['name' => 'editor']);
         $guestRole = Role::create(['name' => 'guest']);
 
         // Assign permissions to admin role
         $adminRole->givePermissionTo($permissions); // Admin can do all actions
 
-        // Assign read permission to guest role
-        $guestRole->givePermissionTo('read');
+        // Assign permissions to editor role
+        $editorPermissions = [
+            'create',
+            'read',
+            'update',
+            'delete',
+        ];
+        $editorRole->givePermissionTo($editorPermissions); // Editor can do all actions except view users
 
+        // Assign read permission to guest role
+        $guestRole->givePermissionTo('read'); // Guest can only read
     }
 }

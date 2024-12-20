@@ -76,6 +76,19 @@
                                 <div class="form-group">
                                     <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="password confirmation">
                                 </div>
+
+                                <!-- Role Selection -->
+                                <div class="form-group">
+                                    <label for="role">Select Role</label>
+                                    <select class="form-control" name="role" id="role" required>
+                                        <option value="admin" {{ $user->hasRole('admin') ? 'selected' : '' }}>Admin</option>
+                                        <option value="editor" {{ $user->hasRole('editor') ? 'selected' : '' }}>Editor</option>
+                                        <option value="guest" {{ $user->hasRole('guest') ? 'selected' : '' }}>Guest</option>
+                                    </select>
+                                    @error('role')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
                                 
                             </div>
 

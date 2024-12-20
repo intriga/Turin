@@ -14,20 +14,30 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        // Example of creating a user and assigning a role
         $admin = User::create([
-            'name' => 'Intriga',
-            'email' => 'admin@admin.com',
+            'name' => 'Admin User',
+            'email' => 'admin@demo.com',
             'password' => bcrypt('123456'),
         ]);
-        $admin->assignRole('admin'); // Assign admin role
 
-        // Create guest user
+        $admin->assignRole('admin');
+
+        $editor = User::create([
+            'name' => 'Editor User',
+            'email' => 'editor@demo.com',
+            'password' => bcrypt('123456'),
+        ]);
+
+        $editor->assignRole('editor');
+
         $guest = User::create([
             'name' => 'Guest User',
-            'email' => 'guest@example.com',
-            'password' => bcrypt('123456'), // Use a secure password
+            'email' => 'guest@demo.com',
+            'password' => bcrypt('123456'),
         ]);
-        $guest->assignRole('guest'); // Assign guest role
+
+        $guest->assignRole('guest');
 
         User::factory()->count(10)->create();
     }

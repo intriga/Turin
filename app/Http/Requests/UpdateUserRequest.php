@@ -26,6 +26,7 @@ class UpdateUserRequest extends FormRequest
                 'unique:users,email,' . $userId, // Allow unique email except for the current user
             ],
             'password' => 'nullable|string|min:8|confirmed', // Password is optional but must be at least 8 characters if provided
+            'role' => 'required|in:admin,editor,guest', // Validate role
         ];
     }
 
