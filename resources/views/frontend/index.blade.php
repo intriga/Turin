@@ -6,7 +6,7 @@
     @include('frontend.includes.header')
 
     <!-- // banner -->
-    @include('frontend.includes.banner')
+    @include('frontend.includes.banner', ['postsSlider' => $postsSlider])
     
     
     <div class="single-wrapper main-post-area-wrapper">

@@ -27,7 +27,7 @@ return new class extends Migration
             
             $table->text('title', 100);
             $table->text('slug', 100);
-            $table->text('content');
+            $table->longText('content');
             $table->text('image')->nullable();
             // $table->text('old_image')->nullable();
             

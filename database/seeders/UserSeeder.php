@@ -23,22 +23,22 @@ class UserSeeder extends Seeder
 
         $admin->assignRole('admin');
 
-        $editor = User::create([
-            'name' => 'Editor User',
-            'email' => 'editor@demo.com',
-            'password' => bcrypt('123456'),
-        ]);
+        // $editor = User::create([
+        //     'name' => 'Editor User',
+        //     'email' => 'editor@demo.com',
+        //     'password' => bcrypt('123456'),
+        // ]);
 
-        $editor->assignRole('editor');
+        // $editor->assignRole('editor');
 
-        $guest = User::create([
-            'name' => 'Guest User',
-            'email' => 'guest@demo.com',
-            'password' => bcrypt('123456'),
-        ]);
+        // $guest = User::create([
+        //     'name' => 'Guest User',
+        //     'email' => 'guest@demo.com',
+        //     'password' => bcrypt('123456'),
+        // ]);
 
-        $guest->assignRole('guest');
+        // $guest->assignRole('guest');
 
-        User::factory()->count(10)->create();
+        // User::factory()->count(10)->create();
     }
 }

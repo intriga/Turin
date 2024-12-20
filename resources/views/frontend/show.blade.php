@@ -6,6 +6,7 @@
     @include('frontend.includes.header-2')
     
     
+    
     <div class="general-single-page-layout single-page-layout-one">
         <!-- header 2 -->
         @include('frontend.includes.breadcrumb')

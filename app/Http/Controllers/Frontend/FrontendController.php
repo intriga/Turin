@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\User;
 
 use Illuminate\Support\Facades\DB;
 
@@ -22,8 +23,10 @@ class FrontendController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(5);
         
+        $postsSlider = Post::with('category', 'user')->orderBy('id', 'desc')->take(3)->get();
+
         // dd($posts);
-        return view('frontend.index', compact('posts', 'categories'));
+        return view('frontend.index', compact('posts', 'categories', 'postsSlider'));
     }
 
     public function show(string $slug)
@@ -43,7 +46,10 @@ class FrontendController extends Controller
 
         $posts = Post::where('category_id', $category)
                ->orderBy('id', 'desc')->paginate(5);
+        
+        $postsSlider = Post::with('category', 'user')->orderBy('id', 'desc')->take(3)->get();
         // dd($category);
-        return view('frontend.index', compact('posts', 'categories'));
+        return view('frontend.index', compact('posts', 'categories', 'postsSlider'));
     }
+    
 }
